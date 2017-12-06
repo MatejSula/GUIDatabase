@@ -12,6 +12,7 @@ package guidatabase;
 //import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,8 +25,7 @@ import net.proteanit.sql.DbUtils;
  * @author admin
  */
 public class GUI extends javax.swing.JFrame {
-
-    
+   
     
     
 Connection myconObj = null;
@@ -175,7 +175,24 @@ ResultSet myresObj=null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try{
+            String id = idTxt.getText();
+            String name = nameTxt.getText();
+            String date = dateTxt.getText();
+            String phone = phoneTxt.getText();
+            
+            PreparedStatement add = myconObj.prepareStatement("insert Into Administrator.Mytable values (?,?,?,?)");
+            
+            add.setString(3, id);
+            add.setString(1, name);
+            add.setString(2, date);
+            add.setString(4, phone);
+            int row = add.executeUpdate();
+        }
+        catch(SQLException E){
+        E.printStackTrace();
+        }
+        selectionall();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
